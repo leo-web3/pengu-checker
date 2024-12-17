@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengu Eligibility Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #results {
+            margin-top: 20px;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pengu Eligibility Checker</h1>
+    <textarea id="addresses" placeholder="Enter addresses, one per line"></textarea>
+    <button onclick="checkEligibility()">Check Eligibility</button>
+    <div id="results"></div>
+
+    <script>
+        async function checkEligibility() {
+            const addresses = document.getElementById('addresses').value.split('\n').filter(addr => addr.trim());
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+
+            for (const address of addresses) {
+                if (!address.trim()) continue;
+                
+                try {
+                    const response = await fetch(`https://api.clusters.xyz/v0.1/airdrops/pengu/eligibility/${address.trim()}`);
+                    const data = await response.json();
+                    resultsDiv.innerHTML += `${address.trim()}: Total = ${data.total}\n`;
+                } catch (error) {
+                    resultsDiv.innerHTML += `${address.trim()}: Error fetching data\n`;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
