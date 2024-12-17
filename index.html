@@ -61,6 +61,23 @@
     <button id="checkButton" onclick="checkEligibility()">Check Eligibility</button>
     <div id="results"></div>
 
+    <div style="margin-top: 20px; padding: 15px; background-color: #fff3cd; border: 1px solid #ffeeba; border-radius: 4px;">
+        <p style="margin: 0; color: #856404;">
+            <strong>注意：</strong>
+            <ul style="margin: 5px 0 0 0;">
+                <li>如果出现 "Error fetching data"，可能是由于接口限流（429错误）</li>
+                <li>官方接口限制每分钟只能查询 30-40 个地址</li>
+                <li>遇到错误时，可以尝试：
+                    <ul>
+                        <li>更换 IP 地址</li>
+                        <li>关闭 VPN</li>
+                        <li>等待一段时间后重新查询</li>
+                    </ul>
+                </li>
+            </ul>
+        </p>
+    </div>
+
     <script>
       async function checkEligibility() {
         const addresses = document
